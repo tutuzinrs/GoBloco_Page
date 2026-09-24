@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GoBloco — Encontre a galera. Viva a folia.</title>
+<meta name="description" content="GoBloco é o app social do Carnaval: mapa ao vivo, blocos, grupos, amigos e pontos de encontro. Encontre a galera. Viva a folia." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --primary: #E91E8C;
+    --secondary: #F5C518;
+    --support: #2E7FE0;
+    --accent: #D8F2E8;
+    --bg: #FAF7F2;
+    --sand: #F3EEE4;
+    --surface: #FFFFFF;
+    --text: #1E1B2E;
+    --text-muted: #6B6780;
+    --border: #E5DFD5;
+    --border-strong: #D9D2C4;
+    --success: #2E9E5B;
+    --warning: #E8973A;
+    --danger: #D64541;
+
+    --radius: 12px;
+    --radius-card: 18px;
+    --radius-lg: 22px;
+
+    --font-display: "Manrope", Arial, sans-serif;
+    --font-body: "DM Sans", Arial, sans-serif;
+
+    --shadow-brand: 0 10px 24px rgba(233, 30, 140, 0.24);
+    --shadow-card: 0 24px 70px rgba(30, 27, 46, 0.10);
+    --shadow-card-sm: 0 6px 18px rgba(30, 27, 46, 0.07);
+    --shadow-input: 0 1px 2px rgba(30, 27, 46, 0.06);
+
+    --container: 1160px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.15; }
+
+  section[id] { scroll-margin-top: 90px; }
+
+  a { color: inherit; text-decoration: none; }
+
+  img, svg { display: block; }
+
+  .container {
+    width: 100%;
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 48px;
+    padding: 12px 26px;
+    border-radius: var(--radius);
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    border: 1.5px solid transparent;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease, color 0.18s ease;
+    white-space: nowrap;
+  }
+  .btn-primary {
+    background: var(--primary);
+    color: #fff;
+    box-shadow: var(--shadow-brand);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(233, 30, 140, 0.32); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--text);
+    border-color: var(--border-strong);
+  }
+  .btn-secondary:hover { border-color: var(--text); transform: translateY(-2px); }
+  .btn-light {
+    background: var(--surface);
+    color: var(--text);
+    box-shadow: var(--shadow-card-sm);
+  }
+  .btn-light:hover { transform: translateY(-2px); }
+  .btn-lg { min-height: 54px; padding: 14px 32px; font-size: 16px; }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--primary);
+    background: rgba(233, 30, 140, 0.09);
+    padding: 7px 14px;
+    border-radius: 100px;
+  }
+
+  .section { padding: 96px 0; }
+  .section-head { max-width: 660px; margin-bottom: 56px; }
+  .section-head.center { margin-left: auto; margin-right: auto; text-align: center; }
+  .section-head h2 { font-size: clamp(30px, 4vw, 44px); font-weight: 800; margin: 18px 0 14px; letter-spacing: -0.02em; }
+  .section-head p { font-size: 17px; color: var(--text-muted); }
+
+  /* ===== Header ===== */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(250, 247, 242, 0.86);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 74px;
+    gap: 24px;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+  }
+  .logo img.logo-img {
+    height: 40px;
+    width: auto;
+    display: block;
+  }
+  .logo-mark {
+    width: 38px;
+    height: 38px;
+    border-radius: 11px;
+    background: linear-gradient(135deg, var(--primary), #ff5fb0);
+    display: grid;
+    place-items: center;
+    color: #fff;
+    box-shadow: var(--shadow-brand);
+    flex-shrink: 0;
+  }
+  .logo span b { color: var(--primary); font-weight: 800; }
+  .nav-links { display: flex; align-items: center; gap: 30px; }
+  .nav-links a {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-muted);
+    transition: color 0.15s ease;
+  }
+  .nav-links a:hover { color: var(--primary); }
+  .nav-cta { display: flex; align-items: center; gap: 12px; }
+  .menu-toggle {
+    display: none;
+    width: 46px;
+    height: 46px;
+    border-radius: var(--radius);
+    border: 1.5px solid var(--border);
+    background: var(--surface);
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text);
+  }
+
+  /* ===== Hero ===== */
+  .hero {
+    position: relative;
+    padding: 84px 0 100px;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: -220px;
+    right: -180px;
+    width: 620px;
+    height: 620px;
+    background: radial-gradient(circle, rgba(245, 197, 24, 0.35), transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero::after {
+    content: "";
+    position: absolute;
+    bottom: -260px;
+    left: -200px;
+    width: 560px;
+    height: 560px;
+    background: radial-gradient(circle, rgba(233, 30, 140, 0.18), transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .hero h1 {
+    font-size: clamp(40px, 5.6vw, 66px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin: 22px 0 20px;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--primary);
+    position: relative;
+    white-space: nowrap;
+  }
+  .hero h1 em::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 4px;
+    height: 10px;
+    background: rgba(245, 197, 24, 0.55);
+    z-index: -1;
+    border-radius: 4px;
+  }
+  .hero p.lead {
+    font-size: 18px;
+    color: var(--text-muted);
+    max-width: 520px;
+    margin-bottom: 32px;
+  }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 40px; }
+  .hero-stats { display: flex; gap: 40px; flex-wrap: wrap; }
+  .stat strong {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+  .stat span { font-size: 14px; color: var(--text-muted); }
+
+  /* Phone mockup */
+  .phone-wrap { position: relative; display: flex; justify-content: center; }
+  .phone {
+    width: 300px;
+    background: var(--text);
+    border-radius: 42px;
+    padding: 12px;
+    box-shadow: var(--shadow-card);
+    position: relative;
+    z-index: 2;
+  }
+  .phone-screen {
+    background: var(--bg);
+    border-radius: 32px;
+    overflow: hidden;
+    min-height: 580px;
+    display: flex;
+    flex-direction: column;
+  }
+  .phone-topbar {
+    background: var(--surface);
+    padding: 18px 18px 14px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .phone-topbar .p-logo { font-family: var(--font-display); font-weight: 800; font-size: 17px; }
+  .phone-topbar .p-logo b { color: var(--primary); }
+  .avatar {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--support), var(--primary));
+  }
+  .map-mock {
+    flex: 1;
+    position: relative;
+    background:
+      linear-gradient(rgba(46, 127, 224, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(46, 127, 224, 0.06) 1px, transparent 1px),
+      #EEF3F0;
+    background-size: 34px 34px, 34px 34px, cover;
+    overflow: hidden;
+  }
+  .road {
+    position: absolute;
+    background: #fff;
+    box-shadow: 0 0 0 1px rgba(30,27,46,0.04);
+  }
+  .road.r1 { width: 130%; height: 16px; top: 28%; left: -15%; transform: rotate(-8deg); }
+  .road.r2 { width: 16px; height: 130%; top: -15%; left: 38%; transform: rotate(6deg); }
+  .road.r3 { width: 130%; height: 14px; top: 68%; left: -15%; transform: rotate(4deg); }
+  .road.r4 { width: 14px; height: 130%; top: -15%; left: 74%; transform: rotate(-5deg); }
+  .zone {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px dashed rgba(233, 30, 140, 0.45);
+    background: rgba(233, 30, 140, 0.10);
+  }
+  .zone.z1 { width: 110px; height: 110px; top: 14%; left: 12%; }
+  .zone.z2 { width: 88px; height: 88px; bottom: 20%; right: 10%; border-color: rgba(46,127,224,0.5); background: rgba(46,127,224,0.10); }
+  .pin {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--surface);
+    border-radius: 100px;
+    padding: 5px 11px 5px 5px;
+    font-size: 11px;
+    font-weight: 700;
+    box-shadow: var(--shadow-card-sm);
+    border: 1px solid var(--border);
+  }
+  .pin i {
+    width: 22px; height: 22px; border-radius: 50%;
+    display: grid; place-items: center; color: #fff; font-style: normal; font-size: 11px;
+  }
+  .pin.p1 { top: 20%; left: 8%; }
+  .pin.p1 i { background: var(--primary); }
+  .pin.p2 { top: 44%; right: 6%; }
+  .pin.p2 i { background: var(--support); }
+  .pin.p3 { bottom: 30%; left: 16%; }
+  .pin.p3 i { background: var(--warning); }
+  .me-dot {
+    position: absolute;
+    top: 52%; left: 47%;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--support);
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 6px rgba(46, 127, 224, 0.22);
+  }
+  .phone-card {
+    margin: -46px 14px 14px;
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    padding: 16px;
+    box-shadow: var(--shadow-card);
+    position: relative;
+    z-index: 3;
+    border: 1px solid var(--border);
+  }
+  .phone-card h4 { font-size: 15px; font-weight: 800; margin-bottom: 4px; }
+  .phone-card p { font-size: 12.5px; color: var(--text-muted); margin-bottom: 12px; }
+  .phone-card .row { display: flex; gap: 8px; }
+  .chip {
+    font-size: 11px; font-weight: 700;
+    padding: 6px 10px; border-radius: 100px;
+    background: var(--sand); color: var(--text-muted);
+  }
+  .chip.go { background: var(--primary); color: #fff; margin-left: auto; }
+  .float-card {
+    position: absolute;
+    background: var(--surface);
+    border-radius: 16px;
+    padding: 12px 14px;
+    box-shadow: var(--shadow-card);
+    border: 1px solid var(--border);
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12.5px;
+    font-weight: 600;
+  }
+  .float-card small { display: block; font-weight: 400; color: var(--text-muted); font-size: 11px; }
+  .float-card .ico {
+    width: 34px; height: 34px; border-radius: 10px;
+    display: grid; place-items: center; color: #fff; flex-shrink: 0;
+  }
+  .fc-1 { top: 8%; left: -8%; }
+  .fc-1 .ico { background: var(--primary); }
+  .fc-2 { bottom: 14%; right: -10%; }
+  .fc-2 .ico { background: var(--secondary); color: var(--text); }
+
+  .logos-strip {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    padding: 26px 0;
+  }
+  .logos-strip .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 42px;
+    flex-wrap: wrap;
+  }
+  .logos-strip span {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--text-muted);
+    opacity: 0.75;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* ===== Features ===== */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .feature {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    padding: 30px 26px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+  .feature:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-card);
+    border-color: transparent;
+  }
+  .feature .ico {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    display: grid; place-items: center;
+    margin-bottom: 20px;
+    color: #fff;
+  }
+  .feature h3 { font-size: 19px; font-weight: 800; margin-bottom: 10px; }
+  .feature p { font-size: 15px; color: var(--text-muted); }
+  .bg-primary { background: var(--primary); }
+  .bg-secondary { background: var(--secondary); color: var(--text) !important; }
+  .bg-support { background: var(--support); }
+  .bg-accent { background: var(--accent); color: var(--text) !important; }
+  .bg-warning { background: var(--warning); }
+  .bg-success { background: var(--success); }
+
+  /* ===== How it works ===== */
+  .how { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; position: relative; }
+  .step { text-align: center; padding: 0 12px; }
+  .step-num {
+    width: 62px; height: 62px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 24px;
+    background: var(--bg);
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    box-shadow: var(--shadow-brand);
+  }
+  .step h3 { font-size: 20px; font-weight: 800; margin-bottom: 10px; }
+  .step p { font-size: 15px; color: var(--text-muted); }
+
+  /* ===== Showcase / split ===== */
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .split.reverse .split-media { order: -1; }
+  .check-list { list-style: none; margin-top: 26px; display: grid; gap: 16px; }
+  .check-list li { display: flex; gap: 13px; align-items: flex-start; font-size: 15.5px; }
+  .check-list .tick {
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--accent); color: var(--success);
+    display: grid; place-items: center; flex-shrink: 0; margin-top: 2px;
+  }
+  .check-list li strong { display: block; font-weight: 700; }
+  .check-list li span { color: var(--text-muted); font-size: 14.5px; }
+
+  .media-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 26px;
+    box-shadow: var(--shadow-card);
+    position: relative;
+  }
+  .media-card.alt { background: var(--sand); }
+  .chat { display: grid; gap: 12px; }
+  .bubble {
+    max-width: 82%;
+    padding: 12px 16px;
+    border-radius: 16px;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+  .bubble.them { background: var(--bg); border: 1px solid var(--border); border-bottom-left-radius: 4px; }
+  .bubble.me {
+    background: var(--primary); color: #fff; justify-self: end;
+    border-bottom-right-radius: 4px;
+  }
+  .bubble small { display: block; font-size: 10.5px; opacity: 0.7; margin-top: 4px; }
+  .chat-head {
+    display: flex; align-items: center; gap: 12px;
+    padding-bottom: 16px; margin-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+  .chat-head .avatar { width: 42px; height: 42px; }
+  .chat-head strong { font-size: 15px; display: block; font-family: var(--font-display); }
+  .chat-head span { font-size: 12.5px; color: var(--success); font-weight: 600; }
+  .members { display: flex; margin-top: 18px; }
+  .members .m {
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 2.5px solid var(--surface);
+    margin-left: -10px;
+    display: grid; place-items: center;
+    font-size: 12px; font-weight: 700; color: #fff;
+  }
+  .members .m:first-child { margin-left: 0; }
+  .members .more { background: var(--sand); color: var(--text-muted); }
+
+  .event-list { display: grid; gap: 12px; }
+  .event {
+    display: flex; align-items: center; gap: 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px;
+  }
+  .event .date {
+    width: 52px; height: 52px; border-radius: 12px;
+    background: var(--bg); border: 1px solid var(--border);
+    display: grid; place-items: center; text-align: center;
+    flex-shrink: 0; line-height: 1.1;
+  }
+  .event .date b { font-family: var(--font-display); font-size: 18px; font-weight: 800; display: block; }
+  .event .date span { font-size: 10.5px; text-transform: uppercase; color: var(--primary); font-weight: 700; }
+  .event h4 { font-size: 15px; font-weight: 700; }
+  .event p { font-size: 12.5px; color: var(--text-muted); }
+  .event .tag {
+    margin-left: auto; font-size: 11px; font-weight: 700;
+    padding: 5px 10px; border-radius: 100px;
+    background: var(--accent); color: var(--success); flex-shrink: 0;
+  }
+
+  /* ===== Pricing ===== */
+  .pricing { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .price-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; max-width: 900px; margin: 0 auto; }
+  .plan {
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 36px 32px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .plan.featured {
+    border-color: var(--primary);
+    background: var(--surface);
+    box-shadow: var(--shadow-brand);
+  }
+  .plan .badge {
+    position: absolute; top: -14px; left: 32px;
+    background: var(--primary); color: #fff;
+    font-size: 12px; font-weight: 700;
+    padding: 5px 14px; border-radius: 100px;
+  }
+  .plan h3 { font-size: 20px; font-weight: 800; }
+  .plan .desc { font-size: 14.5px; color: var(--text-muted); margin: 8px 0 22px; }
+  .plan .price { font-family: var(--font-display); font-weight: 800; letter-spacing: -0.03em; }
+  .plan .price b { font-size: 52px; }
+  .plan .price span { font-size: 16px; color: var(--text-muted); font-weight: 600; font-family: var(--font-body); }
+  .plan .price-note { font-size: 13.5px; color: var(--text-muted); margin-top: 6px; }
+  .plan ul { list-style: none; margin: 24px 0 30px; display: grid; gap: 12px; }
+  .plan ul li { display: flex; gap: 10px; font-size: 14.5px; align-items: center; }
+  .plan ul li svg { color: var(--success); flex-shrink: 0; }
+  .plan .btn { width: 100%; margin-top: auto; }
+
+  /* ===== FAQ ===== */
+  .faq { max-width: 780px; margin: 0 auto; display: grid; gap: 14px; }
+  details {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    padding: 20px 24px;
+    transition: border-color 0.15s ease;
+  }
+  details[open] { border-color: var(--primary); }
+  summary {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 16.5px;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after {
+    content: "+";
+    font-size: 24px;
+    color: var(--primary);
+    font-weight: 400;
+    line-height: 1;
+    transition: transform 0.2s ease;
+  }
+  details[open] summary::after { transform: rotate(45deg); }
+  details p { margin-top: 12px; color: var(--text-muted); font-size: 15px; }
+
+  /* ===== CTA ===== */
+  .cta-band {
+    background: linear-gradient(135deg, #1E1B2E 0%, #2A2444 55%, #3a1f3d 100%);
+    border-radius: var(--radius-lg);
+    padding: 70px 56px;
+    text-align: center;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-band::before {
+    content: "";
+    position: absolute;
+    top: -140px; right: -100px;
+    width: 380px; height: 380px;
+    background: radial-gradient(circle, rgba(233, 30, 140, 0.5), transparent 70%);
+    border-radius: 50%;
+  }
+  .cta-band::after {
+    content: "";
+    position: absolute;
+    bottom: -160px; left: -80px;
+    width: 340px; height: 340px;
+    background: radial-gradient(circle, rgba(245, 197, 24, 0.35), transparent 70%);
+    border-radius: 50%;
+  }
+  .cta-band > * { position: relative; z-index: 1; }
+  .cta-band h2 { font-size: clamp(30px, 4vw, 46px); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 16px; }
+  .cta-band p { color: rgba(255, 255, 255, 0.72); font-size: 17px; max-width: 560px; margin: 0 auto 34px; }
+  .store-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .store-btn {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: #fff; color: var(--text);
+    padding: 12px 24px; border-radius: var(--radius);
+    min-height: 56px;
+    transition: transform 0.18s ease;
+    box-shadow: var(--shadow-card-sm);
+  }
+  .store-btn:hover { transform: translateY(-3px); }
+  .store-btn small { display: block; font-size: 10.5px; color: var(--text-muted); line-height: 1.2; }
+  .store-btn strong { font-size: 15.5px; font-family: var(--font-display); font-weight: 800; }
+
+  /* ===== Footer ===== */
+  footer { background: var(--surface); border-top: 1px solid var(--border); padding: 70px 0 34px; }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr 1fr;
+    gap: 44px;
+    margin-bottom: 50px;
+  }
+  .footer-brand p { font-size: 14.5px; color: var(--text-muted); margin: 16px 0 20px; max-width: 300px; }
+  .socials { display: flex; gap: 10px; }
+  .socials a {
+    width: 42px; height: 42px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    display: grid; place-items: center;
+    color: var(--text-muted);
+    transition: all 0.15s ease;
+  }
+  .socials a:hover { border-color: var(--primary); color: var(--primary); background: rgba(233,30,140,0.06); }
+  .footer-col h4 {
+    font-size: 13px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 18px;
+    color: var(--text);
+  }
+  .footer-col ul { list-style: none; display: grid; gap: 11px; }
+  .footer-col a { font-size: 14.5px; color: var(--text-muted); transition: color 0.15s ease; }
+  .footer-col a:hover { color: var(--primary); }
+  .footer-bottom {
+    border-top: 1px solid var(--border);
+    padding-top: 26px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    font-size: 13.5px;
+    color: var(--text-muted);
+  }
+  .footer-bottom .legal { display: flex; gap: 22px; flex-wrap: wrap; }
+  .footer-bottom a:hover { color: var(--primary); }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 980px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 56px; }
+    .hero p.lead { max-width: 100%; }
+    .phone-wrap { margin-top: 10px; }
+    .features-grid { grid-template-columns: repeat(2, 1fr); }
+    .steps { grid-template-columns: 1fr; gap: 40px; }
+    .split { grid-template-columns: 1fr; gap: 40px; }
+    .split.reverse .split-media { order: 0; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+    .menu-toggle { display: flex; }
+    .nav-cta .btn-secondary { display: none; }
+  }
+  @media (max-width: 640px) {
+    .section { padding: 70px 0; }
+    .features-grid { grid-template-columns: 1fr; }
+    .price-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; gap: 34px; }
+    .cta-band { padding: 50px 26px; }
+    .hero { padding: 56px 0 70px; }
+    .hero-stats { gap: 26px; }
+    .float-card { display: none; }
+    .nav-cta .btn-primary { padding: 10px 18px; min-height: 44px; font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header>
+  <div class="container nav">
+    <a href="#" class="logo" aria-label="GoBloco — início">
+      <img src="logo.png" alt="GoBloco" class="logo-img" />
+      <span>Go<b>Bloco</b></span>
+    </a>
+
+    <nav class="nav-links">
+      <a href="#recursos">Recursos</a>
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#grupos">Grupos &amp; Chat</a>
+      <a href="#eventos">Eventos</a>
+      <a href="#planos">Planos</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+
+    <div class="nav-cta">
+      <a href="#" class="btn btn-secondary">Entrar</a>
+      <a href="#download" class="btn btn-primary">Baixar o app</a>
+      <button class="menu-toggle" aria-label="Abrir menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <span class="eyebrow">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 15 8.5 22 9.3 17 14.2 18.2 21 12 17.8 5.8 21 7 14.2 2 9.3 9 8.5Z"/></svg>
+        O app social do Carnaval
+      </span>
+      <h1>Encontre a galera.<br /><em>Viva a folia.</em></h1>
+      <p class="lead">
+        Blocos, amigos, grupos e pontos de encontro em um mapa ao vivo. O GoBloco junta a sua crew
+        em tempo real — do primeiro ensaio ao desfile final.
+      </p>
+      <div class="hero-actions">
+        <a href="#download" class="btn btn-primary btn-lg">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Baixar grátis
+        </a>
+        <a href="#como-funciona" class="btn btn-secondary btn-lg">Como funciona</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><strong>500+</strong><span>blocos mapeados</span></div>
+        <div class="stat"><strong>120 mil</strong><span>foliões conectados</span></div>
+        <div class="stat"><strong>4.9</strong><span>na App Store</span></div>
+      </div>
+    </div>
+
+    <div class="phone-wrap">
+      <div class="float-card fc-1">
+        <span class="ico">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </span>
+        <div>Crew encontrada<small>6 amigos no ponto</small></div>
+      </div>
+      <div class="float-card fc-2">
+        <span class="ico">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        </span>
+        <div>Bloco Barra Norte<small>400 m de você</small></div>
+      </div>
+
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="phone-topbar">
+            <div class="p-logo">Go<b>Bloco</b></div>
+            <div class="avatar"></div>
+          </div>
+          <div class="map-mock">
+            <div class="road r1"></div>
+            <div class="road r2"></div>
+            <div class="road r3"></div>
+            <div class="road r4"></div>
+            <div class="zone z1"></div>
+            <div class="zone z2"></div>
+            <div class="pin p1"><i>B</i> Barra Norte</div>
+            <div class="pin p2"><i>S</i> Sol &amp; Samba</div>
+            <div class="pin p3"><i>C</i> Crew da Léo</div>
+            <div class="me-dot"></div>
+          </div>
+          <div class="phone-card">
+            <h4>Barra Norte — Ensaio Geral</h4>
+            <p>Hoje, 19h · Av. Atlântica · 23 amigos indo</p>
+            <div class="row">
+              <span class="chip">Ao vivo</span>
+              <span class="chip">1,2 km</span>
+              <span class="chip go">Ir pro ponto</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STRIP ================= -->
+<div class="logos-strip">
+  <div class="container">
+    <span>
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+      Mapa ao vivo
+    </span>
+    <span>
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--support)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+      Grupos &amp; amigos
+    </span>
+    <span>
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
+      Agenda de eventos
+    </span>
+    <span>
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Privacidade real
+    </span>
+    <span>
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Chat em tempo real
+    </span>
+  </div>
+</div>
+
+<!-- ================= FEATURES ================= -->
+<section class="section" id="recursos">
+  <div class="container">
+    <div class="section-head center">
+      <span class="eyebrow">Recursos</span>
+      <h2>Tudo que a sua crew precisa, em um só app</h2>
+      <p>Do mapeamento dos blocos ao chat da galera — o GoBloco organiza o Carnaval inteiro no seu bolso.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature">
+        <span class="ico bg-primary">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        </span>
+        <h3>Mapa interativo ao vivo</h3>
+        <p>Veja blocos, eventos, pontos de encontro e as regiões mais movimentadas da cidade em tempo real.</p>
+      </div>
+
+      <div class="feature">
+        <span class="ico bg-support">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </span>
+        <h3>Grupos com chat</h3>
+        <p>Crie a crew, divida o ponto de encontro e converse no chat integrado — sem sair do app.</p>
+      </div>
+
+      <div class="feature">
+        <span class="ico bg-warning">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
+        </span>
+        <h3>Agenda de blocos</h3>
+        <p>Ensaios, desfiles e festas com horário, endereço e confirmados. Receba alertas antes de cada um.</p>
+      </div>
+
+      <div class="feature">
+        <span class="ico bg-success">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+        </span>
+        <h3>Privacidade primeiro</h3>
+        <p>Você escolhe quem vê sua localização. Compartilhe só com a crew, só por algumas horas, ou nunca.</p>
+      </div>
+
+      <div class="feature">
+        <span class="ico bg-primary">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </span>
+        <h3>Pontos de encontro</h3>
+        <p>Marque onde a galera se cruza e todo mundo recebe o caminho com um toque. Ninguém se perde mais.</p>
+      </div>
+
+      <div class="feature">
+        <span class="ico bg-support">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+        </span>
+        <h3>Descoberta de blocos</h3>
+        <p>Recomendações por estilo, região e vibe. Ache o bloco que combina com a sua galera em segundos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= COMO FUNCIONA ================= -->
+<section class="section how" id="como-funciona">
+  <div class="container">
+    <div class="section-head center">
+      <span class="eyebrow">Como funciona</span>
+      <h2>Três passos até a folia</h2>
+      <p>Sem complicação. Em menos de dois minutos sua crew já está no mapa.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Crie sua conta</h3>
+        <p>Cadastre-se com Google ou e-mail em segundos. Monte seu perfil e escolha seus blocos favoritos.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Monte a crew</h3>
+        <p>Convide os amigos, entre em grupos ativos e marque o ponto de encontro no mapa.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Viva a folia</h3>
+        <p>Acompanhe tudo ao vivo: quem está onde, qual bloco bombando e onde está a galera agora.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GRUPOS & CHAT ================= -->
+<section class="section" id="grupos">
+  <div class="container split">
+    <div>
+      <span class="eyebrow">Grupos &amp; Chat</span>
+      <h2 style="font-size:clamp(28px,3.6vw,42px);font-weight:800;letter-spacing:-0.02em;margin:18px 0 14px;">
+        A galera inteira, na mesma conversa
+      </h2>
+      <p style="font-size:17px;color:var(--text-muted);">
+        Crie um grupo para a crew, compartilhe o ponto no mapa e combine tudo em tempo real.
+        Chat, localização e eventos no mesmo lugar.
+      </p>
+      <ul class="check-list">
+        <li>
+          <span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+          <div><strong>Chat em tempo real</strong><span>Mensagens, fotos e o ponto de encontro direto na conversa.</span></div>
+        </li>
+        <li>
+          <span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+          <div><strong>Localização da crew</strong><span>Veja quem já chegou e quem ainda está a caminho.</span></div>
+        </li>
+        <li>
+          <span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+          <div><strong>Convites com um toque</strong><span>Chame a galera por link e acompanhe quem confirmou.</span></div>
+        </li>
+      </ul>
+      <a href="#" class="btn btn-primary" style="margin-top:32px;">Criar meu grupo</a>
+    </div>
+
+    <div class="split-media">
+      <div class="media-card">
+        <div class="chat-head">
+          <div class="avatar"></div>
+          <div>
+            <strong>Crew da Léo 🎉</strong>
+            <span>● 6 online agora</span>
+          </div>
+        </div>
+        <div class="chat">
+          <div class="bubble them">Galera, ensaio hoje 19h! Ponto na Praça São Salvador
+            <small>Marina · 17:42</small>
+          </div>
+          <div class="bubble me">Já tô a caminho 💜
+            <small>Você · 17:44</small>
+          </div>
+          <div class="bubble them">Toquei o ponto no mapa, é só abrir o GoBloco
+            <small>Rafa · 17:45</small>
+          </div>
+          <div class="bubble me">Fechou, nos vemos lá!
+            <small>Você · 17:46</small>
+          </div>
+        </div>
+        <div class="members">
+          <span class="m" style="background:var(--primary)">L</span>
+          <span class="m" style="background:var(--support)">M</span>
+          <span class="m" style="background:var(--warning)">R</span>
+          <span class="m" style="background:var(--success)">J</span>
+          <span class="m" style="background:var(--text)">A</span>
+          <span class="m more">+18</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= EVENTOS ================= -->
+<section class="section how" id="eventos">
+  <div class="container split reverse">
+    <div>
+      <span class="eyebrow">Eventos &amp; Blocos</span>
+      <h2 style="font-size:clamp(28px,3.6vw,42px);font-weight:800;letter-spacing:-0.02em;margin:18px 0 14px;">
+        Nada de surpresa no calendário
+      </h2>
+      <p style="font-size:17px;color:var(--text-muted);">
+        Ensaios, desfiles e after-parties organizados por data, local e confirmados.
+        Ative os alertas e chegue antes que a rua feche.
+      </p>
+      <ul class="check-list">
+        <li>
+          <span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+          <div><strong>Agenda inteligente</strong><span>Seus blocos favoritos sempre atualizados, com alerta antes de começar.</span></div>
+        </li>
+        <li>
+          <span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+          <div><strong>Confirmação de presença</strong><span>Saiba quem da crew vai e combine o encontro na hora.</span></div>
+        </li>
+        <li>
+          <span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+          <div><strong>Regiões movimentadas</strong><span>Veja onde a rua está lotada antes de sair de casa.</span></div>
+        </li>
+      </ul>
+      <a href="#" class="btn btn-primary" style="margin-top:32px;">Ver agenda completa</a>
+    </div>
+
+    <div class="split-media">
+      <div class="media-card alt">
+        <div class="event-list">
+          <div class="event">
+            <div class="date"><b>14</b><span>fev</span></div>
+            <div>
+              <h4>Ensaio Geral — Barra Norte</h4>
+              <p>19h · Av. Atlântica · 23 confirmados</p>
+            </div>
+            <span class="tag">Hoje</span>
+          </div>
+          <div class="event">
+            <div class="date"><b>16</b><span>fev</span></div>
+            <div>
+              <h4>Desfile Oficial — Sol &amp; Samba</h4>
+              <p>16h · Marquês de Sapucaí · 112 confirmados</p>
+            </div>
+            <span class="tag">Sua crew</span>
+          </div>
+          <div class="event">
+            <div class="date"><b>17</b><span>fev</span></div>
+            <div>
+              <h4>Bloco da Léo — Praça São Salvador</h4>
+              <p>10h · Centro · 58 confirmados</p>
+            </div>
+            <span class="tag">Favorito</span>
+          </div>
+          <div class="event">
+            <div class="date"><b>18</b><span>fev</span></div>
+            <div>
+              <h4>After do Trio — Copacabana</h4>
+              <p>23h · Posto 5 · 41 confirmados</p>
+            </div>
+            <span class="tag">Novo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PLANOS ================= -->
+<section class="section pricing" id="planos">
+  <div class="container">
+    <div class="section-head center">
+      <span class="eyebrow">Planos</span>
+      <h2>Divida com a galera, pague menos</h2>
+      <p>O GoBloco foi feito para a crew. Quanto mais gente dividindo, mais barato sai para todo mundo.</p>
+    </div>
+
+    <div class="price-grid">
+      <div class="plan">
+        <h3>Folião</h3>
+        <p class="desc">Para quem quer explorar os blocos e acompanhar o mapa.</p>
+        <div class="price"><b>R$ 0</b></div>
+        <p class="price-note">Para sempre · sem cartão</p>
+        <ul>
+          <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Mapa ao vivo com blocos</li>
+          <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Até 2 grupos</li>
+          <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Chat com amigos</li>
+          <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Agenda de eventos</li>
+        </ul>
+        <a href="#download" class="btn btn-secondary">Começar grátis</a>
+      </div>
+
+      <div class="plan featured">
+        <span class="badge">Mais popular</span>
+        <h3>Crew</h3>
+        <p class="desc">O plano completo, dividido entre até 5 pessoas.</p>
+        <div class="price"><b>R$ 14,90</b> <span>/mês</span></div>
+        <p class="price-note">R$ 2,98 por pessoa na crew de 5</p>
+        <ul>
+          <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Tudo do plano Folião</li>
+          <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Grupos ilimitados + chat</li>
+          <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Localização da crew em tempo real</li>
+          <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Pontos de encontro compartilhados</li>
+          <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Alertas de bloco e privacidade total</li>
+        </ul>
+        <a href="#" class="btn btn-primary">Assinar com a crew</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section-head center">
+      <span class="eyebrow">Dúvidas</span>
+      <h2>Perguntas frequentes</h2>
+      <p>Tudo o que você precisa saber antes de baixar o GoBloco.</p>
+    </div>
+
+    <div class="faq">
+      <details open>
+        <summary>O GoBloco é gratuito?</summary>
+        <p>Sim. O plano Folião é gratuito para sempre e já entrega mapa ao vivo, chat e agenda. O plano Crew custa R$ 14,90/mês e pode ser dividido por até 5 pessoas — saindo por R$ 2,98 por pessoa.</p>
+      </details>
+      <details>
+        <summary>Como funciona a localização ao vivo?</summary>
+        <p>Você decide quando compartilhar. A localização pode ficar visível apenas para o seu grupo, apenas por algumas horas, ou ficar desativada — a privacidade é configurável a qualquer momento.</p>
+      </details>
+      <details>
+        <summary>Preciso ter o app para ver os blocos?</summary>
+        <p>Os blocos e eventos ficam disponíveis no site, mas o mapa ao vivo, o chat da crew e os pontos de encontro estão disponíveis apenas no app.</p>
+      </details>
+      <details>
+        <summary>Em quais cidades o GoBloco funciona?</summary>
+        <p>Estamos começando pelas principais capitais e cidades de Carnaval. Entre na lista de espera pelo site para ser avisado quando chegarmos na sua cidade.</p>
+      </details>
+      <details>
+        <summary>Posso cancelar quando quiser?</summary>
+        <p>Sim. O plano Crew é mensal e pode ser cancelado a qualquer momento, direto pelo app ou pela área da conta, sem multa.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="section" id="download" style="padding-top:0;">
+  <div class="container">
+    <div class="cta-band">
+      <h2>Baixe o GoBloco e<br />viva o Carnaval com a galera</h2>
+      <p>Encontre a galera, acompanhe os blocos em tempo real e não perca ninguém no meio da folia.</p>
+      <div class="store-row">
+        <a href="#" class="store-btn">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+          <div><small>Baixe na</small><strong>App Store</strong></div>
+        </a>
+        <a href="#" class="store-btn">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 2.7c-.3.3-.5.8-.5 1.4v15.8c0 .6.2 1.1.5 1.4l.1.1 8.9-8.9v-.2L3.7 2.6l-.1.1zm12 6.9-2.7-2.7 3.4-3.4 3.9 2.2c1.1.6 1.1 1.7 0 2.4l-3.9 2.2-.7-.7zm-1.4 1.4L4.1 21.3c.4.4 1 .4 1.7 0l10.4-6-2.7-2.7-.9.9zm0-2.9.9.9 2.7-2.7L5.8 2.6c-.7-.4-1.3-.4-1.7 0l10.1 5.5z"/></svg>
+          <div><small>Baixe no</small><strong>Google Play</strong></div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo" aria-label="GoBloco — início">
+          <img src="logo.png" alt="GoBloco" class="logo-img" />
+          <span>Go<b>Bloco</b></span>
+        </a>
+        <p>O app social do Carnaval. Encontre a galera, acompanhe os blocos e viva a folia do seu jeito.</p>
+        <div class="socials">
+          <a href="https://www.instagram.com/goblocoapp.oficial?stkn=MTlzNHpwazdwM2ZtZg==" aria-label="Instagram" target="_blank" rel="noopener"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a href="#" aria-label="TikTok"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg></a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Produto</h4>
+        <ul>
+          <li><a href="#recursos">Recursos</a></li>
+          <li><a href="#como-funciona">Como funciona</a></li>
+          <li><a href="#eventos">Eventos &amp; Blocos</a></li>
+          <li><a href="#planos">Planos</a></li>
+          <li><a href="#download">Baixar o app</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Empresa</h4>
+        <ul>
+          <li><a href="#">Sobre nós</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Carreiras</a></li>
+          <li><a href="#">Imprensa</a></li>
+          <li><a href="#">Contato</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Suporte</h4>
+        <ul>
+          <li><a href="#faq">Central de ajuda</a></li>
+          <li><a href="#">Segurança &amp; privacidade</a></li>
+          <li><a href="#">Termos de uso</a></li>
+          <li><a href="#">Política de privacidade</a></li>
+          <li><a href="#">Status do sistema</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 GoBloco. Todos os direitos reservados.</span>
+      <div class="legal">
+        <a href="#">Termos</a>
+        <a href="#">Privacidade</a>
+        <a href="#">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.querySelector(".menu-toggle")?.addEventListener("click", function () {
+    const links = document.querySelector(".nav-links");
+    if (!links) return;
+    const open = links.style.display === "flex";
+    links.style.display = open ? "" : "flex";
+    links.style.cssText = open
+      ? ""
+      : "display:flex;position:absolute;top:74px;left:0;right:0;background:var(--surface);flex-direction:column;padding:20px 24px;gap:16px;border-bottom:1px solid var(--border);box-shadow:var(--shadow-card-sm);";
+  });
+</script>
+
+</body>
+</html>
